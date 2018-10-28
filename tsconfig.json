@@ -1,0 +1,39 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "outDir": "./dist",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "strictNullChecks": true,
+      "noImplicitAny": false,
+      "noImplicitReturns": true,
+      "noEmitOnError": false,
+      "removeComments": false,
+      "sourceMap": true,
+      "target": "es5",
+      "jsx": "react",
+      "module": "commonjs",
+      "lib": [
+        "dom",
+        "es2015.promise",
+        "es5",
+        "es2015.iterable",
+        "es6"
+      ],
+      "baseUrl": "./src"
+    },
+    
+    "include": [
+      "./**/*.ts",
+      "./**/*.tsx",
+      "../node_modules/moment/moment.d.ts",
+      "../node_modules/@types/react/index.d.ts",
+      "../node_modules/@types/react-dom/index.d.ts",
+      "../node_modules/@types/react-bootstrap/index.d.ts",
+    ],
+    "exclude": [
+      "node_modules",
+      "dist"
+    ]
+  }
+  

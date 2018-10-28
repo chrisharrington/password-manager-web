@@ -1,0 +1,27 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: $secondary-font;
+}
+
+.container {
+    &, & * {
+        box-sizing: border-box;
+    }
+}
+
+.clearfix {
+    clear: both;
+    float: none;
+}
+
+.spacing-top {
+    margin-top: $spacing;
+}
+
+.spacing-top-large {
+    margin-top: $spacing-large;
+}

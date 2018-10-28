@@ -1,0 +1,17 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.search-wrapper {
+    position: relative;
+
+    .search {
+        padding-right: 50px !important;
+    }
+
+    i {
+        position: absolute;
+        right: $spacing;
+        top: 8px;
+        cursor: pointer;
+    }
+}

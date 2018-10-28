@@ -1,0 +1,35 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.form {
+    position: relative;
+
+    input, select {
+        @include border;
+
+        outline: none;
+        width: 100%;
+        height: 40px;
+        padding: 0 $spacing;
+        border-radius: $border-radius;
+        outline: none;
+        position: relative;
+    }
+
+    .focus {
+        content: '';
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: $primary-background-lightest;
+        transform-origin: center;
+        transform: scale(0, 0);
+        transition: transform $duration-medium ease-in-out;
+    }
+
+    &.focused .focus {
+        transform: scale(1, 1);
+    }
+}

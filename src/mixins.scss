@@ -1,0 +1,12 @@
+@import 'variables.scss';
+
+@mixin centre-vertically($height) {
+    line-height: $height;
+    height: $height;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@mixin border($width: 1px) {
+    border: solid $width $border-colour;
+}

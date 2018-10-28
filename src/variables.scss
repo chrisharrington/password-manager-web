@@ -1,0 +1,37 @@
+// Fonts
+
+$font-size-small: 12px;
+$font-size-regular: 14px;
+$font-size-large: 18px;
+$font-size-largest: 22px;
+
+$primary-font: 'Slabo 27px', sans-serif;
+$secondary-font: 'Lato', sans-serif;
+
+
+// Colours
+
+$primary-background: #550080;
+$primary-background-dark: darken($primary-background, 8%);
+$primary-background-light: lighten($primary-background, 8%);
+$primary-background-lighter: lighten($primary-background, 15%);
+$primary-background-lightest: lighten($primary-background, 22%);
+
+$primary-font-colour: black;
+$secondary-font-colour: #550080;
+
+$border-colour: #E0E0E0;
+
+
+// Spacing
+
+$spacing: 15px;
+$spacing-large: 25px;
+
+$border-radius: 3px;
+
+// Transitions
+
+$duration-slow: 500ms;
+$duration-medium: 350ms;
+$duration-fast: 200ms;

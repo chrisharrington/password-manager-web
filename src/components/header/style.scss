@@ -1,0 +1,64 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+header {
+    $height: 70px;
+
+    width: 100%;
+    height: $height;
+    background-color: $primary-background;
+    color: white;
+
+    .actions {
+        float: left;
+    }
+
+    .profile {
+        float: right;
+
+        img {
+            float: right;
+            border-radius: 50%;
+            border: solid 1px #777;
+            height: $height - 20px;
+            width: $height - 20px;
+            margin-top: 10px;
+        }
+
+        >div {
+            float: right;
+            margin-top: 16px;
+            margin-right: $spacing;
+
+            .name, .email {
+                float: right;
+                text-align: right;
+            }
+
+            .email {
+                font-size: $font-size-small;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    a {
+        @include centre-vertically($height);
+
+        font-family: $primary-font;
+        font-size: $font-size-large;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0 $spacing-large;
+        transition: background-color $duration-fast linear;
+        color: inherit;
+
+        &:hover {
+            background-color: $primary-background-light;
+        }
+
+        &:first-child {
+            margin-left: $spacing-large*-1;
+        }
+    }
+}
