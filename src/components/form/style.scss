@@ -25,7 +25,7 @@
         height: 2px;
         background-color: $primary-background-lightest;
         transform-origin: center;
-        transform: scale(0, 0);
+        transform: scale(0, 1);
         transition: transform $duration-medium ease-in-out;
     }
 

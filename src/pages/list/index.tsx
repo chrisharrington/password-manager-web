@@ -2,40 +2,53 @@ import * as React from 'react';
 
 import { Container, Row, Col } from 'components/grid';
 import { Text } from 'components/form';
+import InfiniteScroll from 'components/infinite-scroll';
 
 import Password from 'models/password';
 
 import PasswordService from 'data/passwords';
 
+import { KeyCodes } from 'utilities/constants';
+
+import PasswordListItem from './password-list-item';
+import PasswordModal from './password-modal';
+
 import './style.scss';
+
+const PAGE_SIZE: number = 60;
 
 interface IListPageState {
     passwords: Password[],
     loading: boolean;
     search: string;
+    page: number;
+    activePassword: Password | null;
 }
 
 export default class ListPage extends React.Component<any, IListPageState> {
+    onKeyDownHandler: () => void;
+    search: Text;
+    infiniteScroll: InfiniteScroll;
+
     constructor(props) {
         super(props);
 
         this.state = {
             passwords: [],
             loading: false,
-            search: ''
+            search: '',
+            page: 1,
+            activePassword: null
         };
     }
 
     async componentDidMount() {
-        try {
-            this.setState({ loading: true });
-            let passwords = await PasswordService.get();
-            this.setState({ passwords });
-        } catch (e) {
-            alert(e);
-        } finally {
-            this.setState({ loading: false });
-        }
+        this.onKeyDownHandler = this.onKeyDown.bind(this);
+        window.addEventListener('keydown', this.onKeyDownHandler);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keyup', this.onKeyDownHandler);
     }
 
     render() {
@@ -43,38 +56,69 @@ export default class ListPage extends React.Component<any, IListPageState> {
             <Row className='spacing-top-large'>
                 <Col xs={6} className='search-wrapper'>
                     <Text
+                        ref={c => this.search = c as Text}
                         inputClassName='search'
                         value={this.state.search}
                         onChange={this.onSearchChange.bind(this)}
                         placeholder='Search by domain or username...'
                     />
-                    <i className="material-icons">{this.state.search ? 'close' : 'search'}</i>
+                    <i className='material-icons' onClick={() => this.setState({ search: '' })}>{this.state.search ? 'close' : 'search'}</i>
                 </Col>
             </Row>
             <Row className='spacing-top-large'>
-                <Col xs={12}>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Domain</th>
-                                <th>Username</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.passwords.map((p, i) => <tr key={i}>
-                                <td>{p.domain}</td>
-                                <td>{p.username}</td>
-                                <td></td>
-                            </tr>)}
-                        </tbody>
-                    </table>
-                </Col>
+                <InfiniteScroll
+                    ref={c => this.infiniteScroll = c as InfiniteScroll}
+                    count={PAGE_SIZE}
+                    get={this.get.bind(this)}
+                    build={this.build.bind(this)}
+                />    
             </Row>
+
+            <PasswordModal 
+                password={this.state.activePassword}
+                onClose={() => this.setState({ activePassword: null })}
+            />
         </Container>;
     }
 
+    async get(start: number, count: number) {
+        try {
+            this.setState({ loading: true });
+            let passwords = await PasswordService.get(this.state.search, start, count);
+            this.setState({ passwords });
+            return passwords;
+        } catch (e) {
+            alert(e);
+        } finally {
+            this.setState({ loading: false });
+        }
+    }
+
+    build(password: Password, index: number) : JSX.Element {
+        return <Col xs={4} className='spacing-bottom' key={index}>
+            <PasswordListItem
+                password={password}
+                onClick={this.onSelectPassword.bind(this)}
+            />
+        </Col>;
+    }
+
     onSearchChange(search) {
-        this.setState({ search });
+        this.setState({ search }, async () => {
+            await this.infiniteScroll.update();
+        });
+    }
+
+    onKeyDown(e) {
+        if (e.keyCode === KeyCodes.F3 || (e.keyCode === KeyCodes.F && e.ctrlKey)) {
+            this.search.focus();
+            e.preventDefault();
+        }
+    }
+
+    onSelectPassword(password) {
+        this.setState({
+            activePassword: password
+        });
     }
 }

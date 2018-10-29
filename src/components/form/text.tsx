@@ -13,6 +13,8 @@ interface ITextProps {
 }
 
 export default class Text extends React.Component<ITextProps, any> {
+    input: HTMLInputElement;
+
     constructor(props) {
         super(props);
 
@@ -25,6 +27,8 @@ export default class Text extends React.Component<ITextProps, any> {
         return <div className={`form text ${this.props.className || ''} ${this.state.focused ? 'focused' : ''}`}>
             {this.props.label && <label>{this.props.label}</label>}
             <input
+                ref={c => this.input = c as HTMLInputElement}
+                value={this.props.value}
                 onFocus={() => this.setState({ focused: true })}
                 onBlur={() => this.setState({ focused: false })}
                 className={this.props.inputClassName || ''}
@@ -34,5 +38,9 @@ export default class Text extends React.Component<ITextProps, any> {
             />
             <div className='focus'></div>
         </div>;
+    }
+
+    focus() {
+        this.input.focus();
     }
 }

@@ -17,10 +17,18 @@ $primary-background-light: lighten($primary-background, 8%);
 $primary-background-lighter: lighten($primary-background, 15%);
 $primary-background-lightest: lighten($primary-background, 22%);
 
+$secondary-background: #BBB;
+$secondary-background-light: lighten($secondary-background, 8%);
+$secondary-background-lighter: lighten($secondary-background, 18%);
+$secondary-background-lightest: lighten($secondary-background, 22%);
+
 $primary-font-colour: black;
 $secondary-font-colour: #550080;
+$tertiary-font-colour: #777;
 
 $border-colour: #E0E0E0;
+
+$error-red: #DD4B39;
 
 
 // Spacing

@@ -15,3 +15,59 @@
         cursor: pointer;
     }
 }
+
+.password-list-item {
+    width: 100%;
+    background-color: $secondary-background-lightest;
+    padding: $spacing;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color $duration-fast linear;
+    position: relative;
+
+    .domain, .username {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        width: 100%;
+    }
+
+    .domain {
+        font-family: $primary-font;
+        font-size: $font-size-largest;
+    }
+
+    .username {
+        font-family: $secondary-font;
+        font-size: $font-size-regular;
+        margin-top: 5px;
+        color: $tertiary-font-colour;
+    }
+
+    .actions {
+        width: 100%;
+        margin-top: $spacing;
+        
+        i {
+            font-size: $font-size-large;
+        }
+
+        .delete {
+            float: right;
+            color: $error-red;
+        }
+
+        .favourite {
+            float: right;
+            color: #444;
+            margin-right: $spacing;
+        }
+
+        .copy-password, .edit, .copy-username {
+            float: left;
+            margin-right: $spacing;
+            color: #444;
+        }
+    }
+}

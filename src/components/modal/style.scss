@@ -1,0 +1,63 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.modal {
+    &.modal-visible {
+        display: block;
+    }
+
+    &.modal-hidden {
+        display: none;
+    }
+    
+    .modal-focus {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        opacity: 0.75;
+        z-index: 2;
+    }
+
+    .modal-content {
+        @include border;
+        position: fixed;
+        z-index: 3;
+        padding: $spacing-large;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border-radius: $border-radius;
+        
+        &.modal-large {
+            width: 800px;
+        }
+
+        &.modal-medium {
+            width: 600px;
+        }
+
+        &.modal-small {
+            width: 400px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+            padding: $spacing-large;
+        }
+
+        .modal-title {
+            font-size: 26px;
+            font-family: $primary-font;
+            width: 100%;
+            display: block;
+            margin-bottom: $spacing;
+        }
+    }
+}
