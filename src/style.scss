@@ -7,6 +7,13 @@ body {
     font-family: $secondary-font;
 }
 
+button {
+    @include border-radius;
+    @include centre-vertically(40px);
+    background-color: $primary-background;
+    color: white;
+}
+
 .container {
     &, & * {
         box-sizing: border-box;

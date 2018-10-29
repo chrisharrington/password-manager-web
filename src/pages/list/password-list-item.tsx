@@ -17,9 +17,17 @@ export default class PasswordListItem extends React.Component<IPasswordListItemP
             <div className='actions'>
                 <i className='material-icons delete'>delete</i>
                 <i className='material-icons favourite'>star_border</i>
-                <i className='material-icons edit'>edit</i>
-                <i className='material-icons copy-password'>vpn_key</i>
-                <i className='material-icons copy-username'>person</i>
+                <button>
+                    <i className='material-icons'>edit</i>
+                    
+                </button>
+                </div>
+                <div className='button-wrapper'>
+                    <i className='material-icons'>vpn_key</i>
+                </div>
+                <div className='button-wrapper'>
+                    <i className='material-icons'>person</i>
+                </div>
                 <div className='clearfix'></div>
             </div>
         </div>

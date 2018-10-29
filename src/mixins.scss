@@ -10,3 +10,7 @@
 @mixin border($width: 1px) {
     border: solid $width $border-colour;
 }
+
+@mixin border-radius($radius: $border-radius) {
+    border-radius: $radius;
+}

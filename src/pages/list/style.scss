@@ -17,13 +17,16 @@
 }
 
 .password-list-item {
+    $duration: $duration-fast;
+    $height: 79px;
+
     width: 100%;
     background-color: $secondary-background-lightest;
     padding: $spacing;
     border-radius: $border-radius;
-    cursor: pointer;
     transition: background-color $duration-fast linear;
     position: relative;
+    height: $height;
 
     .domain, .username {
         overflow: hidden;
@@ -35,39 +38,57 @@
 
     .domain {
         font-family: $primary-font;
-        font-size: $font-size-largest;
+        font-size: $font-size-larger;
+        transform-origin: top left;
+        transition: transform $duration linear;
     }
 
     .username {
         font-family: $secondary-font;
-        font-size: $font-size-regular;
+        font-size: $font-size-medium;
         margin-top: 5px;
         color: $tertiary-font-colour;
+        transition: opacity $duration linear;
     }
 
     .actions {
+        $button-spacing: 5px;
+
+        position: absolute;
+        z-index: 2;
         width: 100%;
-        margin-top: $spacing;
-        
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity $duration linear;
+        height: $height;
+        padding: $spacing;
+        background-color: $secondary-background-lightest;
+       
         i {
-            font-size: $font-size-large;
-        }
+            font-size: $font-size-larger;
+            cursor: pointer;
+            padding: $spacing/2;
 
-        .delete {
-            float: right;
-            color: $error-red;
-        }
+            &.delete {
+                position: absolute;
+                top: $spacing/2;
+                right: $spacing/2;
+                color: $error-red;
+            }
 
-        .favourite {
-            float: right;
-            color: #444;
-            margin-right: $spacing;
+            &.favourite {
+                position: absolute;
+                top: $spacing/2;
+                right: $spacing*3/2 + 22px;
+                color: #666;
+            }
         }
+    }
 
-        .copy-password, .edit, .copy-username {
-            float: left;
-            margin-right: $spacing;
-            color: #444;
-        }
+    &:hover .actions {
+        opacity: 1;
+        pointer-events: auto;
     }
 }
