@@ -14,3 +14,20 @@
 @mixin border-radius($radius: $border-radius) {
     border-radius: $radius;
 }
+
+@mixin icon-button($height: 40px) {
+    i, span {
+        @include centre-vertically($height);
+        float: left;
+    }
+
+    span {
+        margin-left: $spacing/2;
+    }
+
+    &::after {
+        content: '';
+        clear: both;
+        float: none;
+    }
+}

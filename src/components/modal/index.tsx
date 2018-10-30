@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Portal from 'components/portal';
+import Icon from 'components/icon';
 
 import { KeyCodes } from 'utilities/constants';
 
@@ -12,6 +13,7 @@ interface IModalProps {
 
     size?: ModalSize;
     title?: string;
+    className?: string;
 }
 
 interface IModalState {
@@ -46,10 +48,12 @@ export class Modal extends React.Component<IModalProps, IModalState> {
 
     render() {
         return <Portal>
-            <div className={`modal ${this.props.visible ? 'modal-visible' : 'modal-hidden'}`}>
+            <div className={`modal ${this.props.visible ? 'modal-visible' : 'modal-hidden'} ${this.props.className || ''}`}>
                 <div className='modal-focus'></div>
                 <div className={`modal-content ${this.props.size || ModalSize.Medium}`}>
-                    <i className='modal-close material-icons' onClick={this.props.onClose.bind(this)}>close</i>
+                    <div className='modal-close'>
+                        <Icon tooltip='Close' onClick={this.props.onClose.bind(this)}>close</Icon>
+                    </div>
                     {this.props.title && <span className='modal-title'>{this.props.title}</span>}
                     {this.props.children}
                 </div>

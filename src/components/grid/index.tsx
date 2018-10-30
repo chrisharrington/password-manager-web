@@ -8,6 +8,14 @@ export class Container extends React.Component<any, any> {
     }
 }
 
+export class InnerContainer extends React.Component<any, any> {
+    render() {
+        return <div className={`inner-container ${this.props.className || ''}`}>
+            {this.props.children}
+        </div>;
+    }
+}
+
 export class Row extends React.Component<any, any> {
     render() {
         return <div className={`row ${this.props.className || ''}`}>

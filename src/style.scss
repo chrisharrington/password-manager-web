@@ -12,12 +12,17 @@ button {
     @include centre-vertically(40px);
     background-color: $primary-background;
     color: white;
+    border: none;
 }
 
-.container {
+.container, .inner-container {
     &, & * {
         box-sizing: border-box;
     }
+}
+
+.inner-container {
+    width: 100%;
 }
 
 .clearfix {

@@ -9,9 +9,9 @@ interface IIconButtonProps {
 
 export default class IconButton extends React.Component<IIconButtonProps, any> {
     render() {
-        return <div className={`icon-button ${this.props.className || ''}`} onClick={this.props.onClick.bind(this)}>
+        return <button className={`icon-button ${this.props.className || ''}`} onClick={this.props.onClick.bind(this)}>
             <i className='material-icons'>{this.props.icon}</i>
             <span>{this.props.label}</span>
-        </div>;
+        </button>;
     }
 }

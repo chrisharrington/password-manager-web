@@ -22,7 +22,7 @@
         position: absolute;
         left: 0;
         bottom: 0;
-        height: 2px;
+        height: 1px;
         background-color: $primary-background-lightest;
         transform-origin: center;
         transform: scale(0, 1);
@@ -32,8 +32,17 @@
     &.focused .focus {
         transform: scale(1, 1);
     }
+
+    label {
+        width: 100%;
+        font-size: $font-size-smaller;
+        color: $tertiary-font-colour;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
 }
 
 .icon-button {
-    
+    @include icon-button;
 }

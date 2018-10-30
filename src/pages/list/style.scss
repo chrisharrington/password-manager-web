@@ -18,7 +18,6 @@
 
 .password-list-item {
     $duration: $duration-fast;
-    $height: 79px;
 
     width: 100%;
     background-color: $secondary-background-lightest;
@@ -26,7 +25,11 @@
     border-radius: $border-radius;
     transition: background-color $duration-fast linear;
     position: relative;
-    height: $height;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $secondary-background-lighter;
+    }
 
     .domain, .username {
         overflow: hidden;
@@ -39,8 +42,6 @@
     .domain {
         font-family: $primary-font;
         font-size: $font-size-larger;
-        transform-origin: top left;
-        transition: transform $duration linear;
     }
 
     .username {
@@ -48,47 +49,28 @@
         font-size: $font-size-medium;
         margin-top: 5px;
         color: $tertiary-font-colour;
-        transition: opacity $duration linear;
     }
+}
 
+.password-modal {
     .actions {
-        $button-spacing: 5px;
-
         position: absolute;
-        z-index: 2;
-        width: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        opacity: 1;
-        transition: opacity $duration linear;
-        height: $height;
-        padding: $spacing;
-        background-color: $secondary-background-lightest;
-       
-        i {
-            font-size: $font-size-larger;
+        top: $spacing-large/2;
+        left: $spacing-large/2;
+
+        .icon-wrapper {
+            float: left;
+            
             cursor: pointer;
-            padding: $spacing/2;
+            position: relative;
 
-            &.delete {
-                position: absolute;
-                top: $spacing/2;
-                right: $spacing/2;
-                color: $error-red;
-            }
-
-            &.favourite {
-                position: absolute;
-                top: $spacing/2;
-                right: $spacing*3/2 + 22px;
-                color: #666;
+            &:first-child {
+                margin-left: 0;
             }
         }
     }
 
-    &:hover .actions {
-        opacity: 1;
-        pointer-events: auto;
+    .domain {
+        margin-top: 40px;
     }
 }

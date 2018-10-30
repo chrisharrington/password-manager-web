@@ -49,7 +49,8 @@
             right: 0;
             top: 0;
             cursor: pointer;
-            padding: $spacing-large;
+            margin-top: $spacing-large - $spacing;
+            margin-right: $spacing-large - $spacing;
         }
 
         .modal-title {
