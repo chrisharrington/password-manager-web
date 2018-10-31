@@ -4,7 +4,7 @@
   "description": "A web front end for managing passwords.",
   "main": "index.js",
   "scripts": {
-    "run:dev": "node_modules/.bin/webpack-dev-server --open"
+    "run:dev": "yarn && node_modules/.bin/webpack-dev-server --open"
   },
   "repository": {
     "type": "git",

@@ -1,13 +1,15 @@
 // Fonts
 
-$font-size-smaller: 10px;
-$font-size-small: 12px;
-$font-size-medium: 14px;
+$font-size-smaller: 12px;
+$font-size-small: 14px;
+$font-size-medium: 16px;
 $font-size-large: 18px;
-$font-size-larger: 22px;
-$font-size-largest: 26px;
+$font-size-larger: 20px;
+$font-size-largest: 22px;
+$font-size-title: 24px;
 
-$primary-font: 'Slabo 27px', sans-serif;
+//$primary-font: 'Slabo 27px', sans-serif;
+$primary-font: 'Roboto Slab';
 $secondary-font: 'Lato', sans-serif;
 
 
@@ -39,7 +41,7 @@ $success-green: #4DAC12;
 $spacing: 15px;
 $spacing-large: 25px;
 
-$border-radius: 3px;
+$border-radius: 5px;
 
 // Transitions
 

@@ -12,6 +12,7 @@
         height: 40px;
         padding: 0 $spacing;
         border-radius: $border-radius;
+        font-size: $font-size-medium;
         outline: none;
         position: relative;
     }
@@ -45,4 +46,22 @@
 
 .icon-button {
     @include icon-button;
+}
+
+.button {
+    @include border-radius;
+    @include centre-vertically(40px);
+    background-color: $primary-background;
+    color: white;
+    border: none;
+    width: 100%;
+    text-align: center;
+    font-family: $primary-font;
+    font-size: $font-size-medium;
+    cursor: pointer;
+    transition: background-color $duration-fast linear;
+
+    &:hover {
+        background-color: $primary-background-light;
+    }
 }

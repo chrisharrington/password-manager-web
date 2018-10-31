@@ -35,6 +35,15 @@ export class Col extends React.Component<any, any> {
             className += 'md-' + this.props.md;
         else if (this.props.lg)
             className += 'lg-' + this.props.lg;
+
+        if (this.props.xsOffset)
+            className += ' col-xs-offset-' + this.props.xsOffset;
+        if (this.props.smOffset)
+            className += ' col-sm-offset-' + this.props.smOffset;
+        if (this.props.mdOffset)
+            className += ' col-md-offset-' + this.props.mdOffset;
+        if (this.props.lgOffset)
+            className += ' col-lg-offset-' + this.props.lgOffset;
             
         return <div className={className}>
             {this.props.children}

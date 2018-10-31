@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Container, Row, Col } from 'components/grid';
-import { Text } from 'components/form';
+import { Text, Button } from 'components/form';
 import InfiniteScroll from 'components/infinite-scroll';
 import { Feedback, FeedbackType } from 'components/feedback';
 
@@ -65,6 +65,12 @@ export default class ListPage extends React.Component<any, IListPageState> {
                         placeholder='Search by domain or username...'
                     />
                     <i className='material-icons' onClick={() => this.setState({ search: '' })}>{this.state.search ? 'close' : 'search'}</i>
+                </Col>
+                <Col xs={2} xsOffset={4}>
+                    <Button
+                        label='Add Password...'
+                        onClick={() => alert('add password')}
+                    />
                 </Col>
             </Row>
             <Row className='spacing-top-large'>
