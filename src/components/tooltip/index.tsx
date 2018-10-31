@@ -47,6 +47,7 @@ interface ITooltipState {
 
 export class Tooltip extends React.Component<ITooltipProps, ITooltipState> {
     children: HTMLDivElement;
+    mouseEntered: boolean;
 
     constructor(props) {
         super(props);
@@ -57,6 +58,11 @@ export class Tooltip extends React.Component<ITooltipProps, ITooltipState> {
             top: 0,
             left: 0
         };
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.props.disabled && !props.disabled && this.mouseEntered)
+            this.show(true, props.disabled);
     }
 
     render() {
@@ -84,23 +90,24 @@ export class Tooltip extends React.Component<ITooltipProps, ITooltipState> {
             onEvent: TooltipEvent = this.props.onEvent || TooltipEvent.MouseEnter,
             offEvent: TooltipEvent = this.props.offEvent || TooltipEvent.MouseLeave;
 
-        props[onEvent] = this.show.bind(this, true);
-        props[offEvent] = this.show.bind(this, false);
+        props[onEvent] = this.show.bind(this, true, this.props.disabled);
+        props[offEvent] = this.show.bind(this, false, this.props.disabled);
         return props;
     }
 
-    show(visible: boolean) {
+    show(visible: boolean, disabled: boolean) {
+        this.mouseEntered = visible;
+
         let dom = ReactDOM.findDOMNode(this.children) as any;
         if (!dom)
             return;
 
         let rect = dom.getBoundingClientRect();
-        console.log(rect);
         this.setState({
             width: rect.width,
             top: rect.y + rect.height + (window as any).pageYOffset + (this.props.yOffset || 0),
             left: rect.x + (window as any).pageXOffset,
-            visible: this.props.disabled ? false : visible
+            visible: disabled ? false : visible
         });
     }
 }

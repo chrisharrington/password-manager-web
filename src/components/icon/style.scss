@@ -1,19 +1,26 @@
 @import 'variables.scss';
 @import 'mixins.scss';
 
-.icon-wrapper {
+.icon {
+    $icon-size: 24px;
+    $highlight-size: 42px;
+
     padding: $spacing-large/2;
 
-    .icon {
-        $icon-size: 24px;
-        $highlight-size: 42px;
-
+    .icon-content {
         width: $icon-size;
         height: $icon-size;
         position: relative;
         transition: color $duration-fast linear;
+        user-select: none;
 
         .highlight {
+            display: none;
+        }
+    }
+
+    &.with-highlight {
+        .icon-content .highlight {
             background-color: $primary-background;
             border-radius: 50%;
             position: absolute;
@@ -25,16 +32,17 @@
             transform: scale(0.5, 0.5);
             opacity: 0;
             transition: transform $duration-fast linear, opacity $duration-fast linear, background-color $duration-fast linear;
+            display: block;
         }
-    }
 
-    &:hover {
-        .icon {
-            color: white;
+        &:hover {
+            .icon-content {
+                color: white;
 
-            .highlight {
-                transform: scale(1, 1);
-                opacity: 1;
+                .highlight {
+                    transform: scale(1, 1);
+                    opacity: 1;
+                }
             }
         }
     }

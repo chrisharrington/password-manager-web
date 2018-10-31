@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Container, Row, Col } from 'components/grid';
 import { Text } from 'components/form';
 import InfiniteScroll from 'components/infinite-scroll';
+import { Feedback, FeedbackType } from 'components/feedback';
 
 import Password from 'models/password';
 
@@ -29,6 +30,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
     onKeyDownHandler: () => void;
     search: Text;
     infiniteScroll: InfiniteScroll;
+    feedback: Feedback;
 
     constructor(props) {
         super(props);
@@ -52,7 +54,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
     }
 
     render() {
-        return <Container>
+        return <Container className='list-page'>
             <Row className='spacing-top-large'>
                 <Col xs={6} className='search-wrapper'>
                     <Text
@@ -78,6 +80,8 @@ export default class ListPage extends React.Component<any, IListPageState> {
                 password={this.state.activePassword}
                 onClose={() => this.setState({ activePassword: null })}
             />
+
+            <Feedback ref={c => this.feedback = c as Feedback} />
         </Container>;
     }
 
@@ -99,6 +103,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
             <PasswordListItem
                 password={password}
                 onClick={this.onSelectPassword.bind(this)}
+                onFeedback={(type: FeedbackType, message: string) => this.feedback.message(type, message)}
             />
         </Col>;
     }

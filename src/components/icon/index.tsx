@@ -6,6 +6,7 @@ import './style.scss';
 
 interface IIconProps {
     tooltip: string;
+    tooltipDisabled?: boolean;
     highlight?: boolean;
     className?: string;
     onClick?: () => void;
@@ -13,9 +14,10 @@ interface IIconProps {
 
 export default class Icon extends React.Component<IIconProps, any> {
     render() {
-        return <Tooltip message={this.props.tooltip} yOffset={-10}>
-            <div className={`icon-wrapper ${this.props.className || ''}`} onClick={() => this.props.onClick && this.props.onClick()}>
-                <i className='material-icons icon'>
+        const highlight = this.props.highlight === undefined ? true : this.props.highlight;
+        return <Tooltip message={this.props.tooltip} yOffset={-10} disabled={!!this.props.tooltipDisabled}>
+            <div className={`icon ${this.props.className || ''} ${highlight ? 'with-highlight' : ''}`} onClick={() => this.props.onClick && this.props.onClick()}>
+                <i className='material-icons icon-content'>
                     <div>
                         {this.props.children}
                     </div>
