@@ -33,41 +33,47 @@ export default class PasswordListItem extends React.Component<IPasswordListItemP
             onMouseLeave={this.onMouseLeave.bind(this)}
             className='password-list-item'
         >
-            <span className='domain'>{password.domain}</span>
-            <span className='username'>{password.username}</span>
-            
-            <div className='actions'>
-                <CopyToClipboard text={password.username}>
-                    <IconButton
-                        tooltip='Copy Username'
-                        tooltipDisabled={this.state.tooltipsDisabled}
-                        onClick={() => this.props.onFeedback(FeedbackType.Success, `The username for ${password.domain} has been copied to your clipboard.`)}
-                    >
-                        person
-                    </IconButton>
-                </CopyToClipboard>
-                <CopyToClipboard text={password.password}>
-                    <IconButton
-                        tooltip='Copy Password'
-                        tooltipDisabled={this.state.tooltipsDisabled}
-                        onClick={() => this.props.onFeedback(FeedbackType.Success, `The password for ${password.domain} has been copied to your clipboard.`)}
-                    >
-                        vpn_key
-                    </IconButton>
-                </CopyToClipboard>
-                <IconButton
-                    tooltip='Edit'
-                    tooltipDisabled={this.state.tooltipsDisabled}
-                    onClick={() => this.props.onEdit(password)}
-                >
-                    edit
-                </IconButton>
-                <IconButton
-                    tooltip='Delete'
-                    tooltipDisabled={this.state.tooltipsDisabled}
-                >
-                    delete
-                </IconButton>
+            <div className='flipper'>
+                <div className='flip-front'>
+                    <span className='domain'>{password.domain}</span>
+                    <span className='username'>{password.username}</span>
+                </div>
+                
+                <div className='flip-back'>
+                    <div className='centre'>
+                        <CopyToClipboard text={password.username}>
+                            <IconButton
+                                tooltip='Copy Username'
+                                tooltipDisabled={this.state.tooltipsDisabled}
+                                onClick={() => this.props.onFeedback(FeedbackType.Success, `The username for ${password.domain} has been copied to your clipboard.`)}
+                            >
+                                person
+                            </IconButton>
+                        </CopyToClipboard>
+                        <CopyToClipboard text={password.password}>
+                            <IconButton
+                                tooltip='Copy Password'
+                                tooltipDisabled={this.state.tooltipsDisabled}
+                                onClick={() => this.props.onFeedback(FeedbackType.Success, `The password for ${password.domain} has been copied to your clipboard.`)}
+                            >
+                                vpn_key
+                            </IconButton>
+                        </CopyToClipboard>
+                        <IconButton
+                            tooltip='Edit'
+                            tooltipDisabled={this.state.tooltipsDisabled}
+                            onClick={() => this.props.onEdit(password)}
+                        >
+                            edit
+                        </IconButton>
+                        <IconButton
+                            tooltip='Delete'
+                            tooltipDisabled={this.state.tooltipsDisabled}
+                        >
+                            delete
+                        </IconButton>
+                    </div>
+                </div>
             </div>
         </div>
     }
