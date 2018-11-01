@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import { Tooltip } from 'components/tooltip';
+import Icon from 'components/icon';
+
 import './style.scss';
 
 interface ITextProps {
@@ -10,9 +13,14 @@ interface ITextProps {
     className?: string;
     inputClassName?: string;
     label?: string;
+    error?: string;
 }
 
-export default class Text extends React.Component<ITextProps, any> {
+interface ITextState {
+    focused: boolean;
+}
+
+export default class Text extends React.Component<ITextProps, ITextState> {
     input: HTMLInputElement;
 
     constructor(props) {
@@ -24,7 +32,7 @@ export default class Text extends React.Component<ITextProps, any> {
     }
     
     render() {
-        return <div className={`form text ${this.props.className || ''} ${this.state.focused ? 'focused' : ''}`}>
+        return <div className={`form text ${this.props.className || ''} ${this.state.focused ? 'focused' : ''} ${this.props.error ? 'has-error' : ''}`}>
             {this.props.label && <label>{this.props.label}</label>}
             <input
                 ref={c => this.input = c as HTMLInputElement}
@@ -37,6 +45,17 @@ export default class Text extends React.Component<ITextProps, any> {
                 onChange={e => this.props.onChange(e.target.value)}
             />
             <div className='focus'></div>
+            
+            <div className='form-error-icon-wrapper'>
+                <Tooltip
+                    message={this.props.error || ''}
+                >
+                    <Icon
+                        className='form-error-icon'
+                        name='error'
+                    />
+                </Tooltip>
+            </div>
         </div>;
     }
 

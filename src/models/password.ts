@@ -3,4 +3,10 @@ export default class Password {
     domain: string;
     username: string;
     password: string;
+
+    constructor() {
+        this.domain = '';
+        this.username = '';
+        this.password = '';
+    }
 }

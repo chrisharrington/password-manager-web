@@ -1,29 +1,20 @@
 import * as React from 'react';
 
-import { Tooltip } from 'components/tooltip';
-
 import './style.scss';
 
 interface IIconProps {
-    tooltip: string;
-    tooltipDisabled?: boolean;
-    highlight?: boolean;
+    name: string;
     className?: string;
     onClick?: () => void;
 }
 
 export default class Icon extends React.Component<IIconProps, any> {
     render() {
-        const highlight = this.props.highlight === undefined ? true : this.props.highlight;
-        return <Tooltip message={this.props.tooltip} yOffset={-10} disabled={!!this.props.tooltipDisabled}>
-            <div className={`icon ${this.props.className || ''} ${highlight ? 'with-highlight' : ''}`} onClick={() => this.props.onClick && this.props.onClick()}>
-                <i className='material-icons icon-content'>
-                    <div>
-                        {this.props.children}
-                    </div>
-                    <div className='highlight'></div>
-                </i>
-            </div>
-        </Tooltip>;
+        return <i
+            className={`${this.props.className || ''} material-icons`}
+            onClick={() => this.props.onClick && this.props.onClick()}
+        >
+            {this.props.name}
+        </i>;
     }
 }

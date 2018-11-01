@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Portal from 'components/portal';
-import Icon from 'components/icon';
+import { IconButton } from 'components/form';
 
 import { KeyCodes } from 'utilities/constants';
 
@@ -52,7 +52,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
                 <div className='modal-focus'></div>
                 <div className={`modal-content ${this.props.size || ModalSize.Medium}`}>
                     <div className='modal-close'>
-                        <Icon tooltip='Close' onClick={this.props.onClose.bind(this)}>close</Icon>
+                        <IconButton tooltip='Close' onClick={this.props.onClose.bind(this)}>close</IconButton>
                     </div>
                     {this.props.title && <span className='modal-title'>{this.props.title}</span>}
                     {this.props.children}

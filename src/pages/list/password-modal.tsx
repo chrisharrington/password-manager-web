@@ -1,54 +1,81 @@
 import * as React from 'react';
 
-import { Modal, ModalSize } from 'components/modal';
+import { Modal } from 'components/modal';
 import { InnerContainer, Row, Col } from 'components/grid';
-import { Text } from 'components/form';
-import Icon from 'components/icon';
+import { Text, PrimaryButton, SecondaryButton } from 'components/form';
 
 import Password from 'models/password';
+import PasswordService from 'data/password';
+
+import { Value, Rules } from 'utilities/validation';
 
 interface IPasswordModalProps {
-    password: Password | null;
-    onClose: () => void;
+    
 }
 
 interface IPasswordModalState {
-    password: Password | null;
+    visible: boolean;
+    mode: Mode;
+    values: IPasswordValidation;
+}
+
+enum Mode {
+    Add,
+    Edit
+}
+
+interface IPasswordValidation {
+    domain: Value;
+    username: Value;
+    password: Value;
 }
 
 export default class PasswordModal extends React.Component<IPasswordModalProps, IPasswordModalState> {
     constructor(props) {
         super(props);
 
-        this.state = {
-            password: null
-        };
+        this.state = this.defaultState();
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ password: JSON.parse(JSON.stringify(props.password)) });
+    defaultState() {
+        return {
+            visible: false,
+            mode: Mode.Add,
+
+            values: {
+                domain: new Value('domain', Rules.Required),
+                username: new Value('username', Rules.Required),
+                password: new Value('password', Rules.Required)
+            }
+        }
     }
 
     render() {
-        const password = this.props.password;
+        const values = this.state.values;
         return <Modal
-            visible={!!password}
+            title={this.state.mode === Mode.Edit ? values.domain.get() : 'New Password'}
+            visible={this.state.visible}
             className='password-modal'
-            onClose={this.props.onClose.bind(this)}
+            onClose={this.onClose.bind(this)}
         >
-            <div className='actions'>
-                <Icon tooltip='Delete'>delete_outline</Icon>
-                <Icon tooltip='Favourite'>star_outline</Icon>
-                <Icon tooltip='Copy Username'>person</Icon>
-                <Icon tooltip='Copy Password'>vpn_key</Icon>
-            </div>
             <InnerContainer>
                 <Row className='domain'>
                     <Col xs={12}>
                         <Text
                             label='Domain'
-                            value={password ? password.domain : ''}
+                            value={values.domain.get()}
                             onChange={value => this.onChange('domain', value)}
+                            error={values.domain.error()}
+                        />
+                    </Col>
+                </Row>
+                <Row className='spacing-top'>
+                    <Col xs={12}>
+                        <Text
+                            label='Username'
+                            value={values.username.get()}
+                            onChange={value => this.onChange('username', value)}
+                            error={values.username.error()}
                         />
                     </Col>
                 </Row>
@@ -56,21 +83,56 @@ export default class PasswordModal extends React.Component<IPasswordModalProps, 
                     <Col xs={12}>
                         <Text
                             label='Password'
-                            value={password ? password.password : ''}
+                            value={values.password.get()}
                             onChange={value => this.onChange('password', value)}
+                            error={values.password.error()}
+                        />
+                    </Col>
+                </Row>
+                <Row className='spacing-top-large'>
+                    <Col xs={2} xsOffset={8}>
+                        <SecondaryButton
+                            label='Cancel'
+                            onClick={this.onClose.bind(this)}
+                        />
+                    </Col>
+                    <Col xs={2}>
+                        <PrimaryButton
+                            label={this.state.mode === Mode.Add ? 'Add' : 'Save'}
+                            onClick={() => this.onSave()}
                         />
                     </Col>
                 </Row>
             </InnerContainer>
-        </Modal>
+        </Modal>;
+    }
+
+    add() {
+        let state = this.defaultState();
+        state.mode = Mode.Add;
+        state.visible = true;
+        this.setState(state);
+    }
+
+    edit(password: Password) {
+        let state = this.defaultState();
+        state.mode = Mode.Edit;
+        state.visible = true;
+        Object.keys(password).forEach(key => state.values[key] && state.values[key].set(password[key]));
+        this.setState(state);
+    }
+
+    onClose() {
+        this.setState(this.defaultState());
     }
 
     onChange(key, value) {
-        let password = this.state.password;
-        if (!password)
-            return;
+        let values = this.state.values;
+        values[key] = value;
+        this.setState({ values });
+    }
 
-        password[key] = value;
-        this.setState({ password });
+    async onSave() {
+        
     }
 }

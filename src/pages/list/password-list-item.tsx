@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { FeedbackType } from 'components/feedback';
-import Icon from 'components/icon';
+import { IconButton } from 'components/form';
 
 import Password from 'models/password';
 
@@ -10,6 +10,7 @@ interface IPasswordListItemProps {
     password: Password;
     onClick?: (password: Password) => void;
     onFeedback: (type: FeedbackType, message: string) => void;
+    onEdit: (password: Password) => void;
 }
 
 interface IPasswordListItemState {
@@ -37,35 +38,36 @@ export default class PasswordListItem extends React.Component<IPasswordListItemP
             
             <div className='actions'>
                 <CopyToClipboard text={password.username}>
-                    <Icon
+                    <IconButton
                         tooltip='Copy Username'
                         tooltipDisabled={this.state.tooltipsDisabled}
                         onClick={() => this.props.onFeedback(FeedbackType.Success, `The username for ${password.domain} has been copied to your clipboard.`)}
                     >
                         person
-                    </Icon>
+                    </IconButton>
                 </CopyToClipboard>
                 <CopyToClipboard text={password.password}>
-                    <Icon
+                    <IconButton
                         tooltip='Copy Password'
                         tooltipDisabled={this.state.tooltipsDisabled}
                         onClick={() => this.props.onFeedback(FeedbackType.Success, `The password for ${password.domain} has been copied to your clipboard.`)}
                     >
                         vpn_key
-                    </Icon>
+                    </IconButton>
                 </CopyToClipboard>
-                <Icon
+                <IconButton
                     tooltip='Edit'
                     tooltipDisabled={this.state.tooltipsDisabled}
+                    onClick={() => this.props.onEdit(password)}
                 >
                     edit
-                </Icon>
-                <Icon
+                </IconButton>
+                <IconButton
                     tooltip='Delete'
                     tooltipDisabled={this.state.tooltipsDisabled}
                 >
                     delete
-                </Icon>
+                </IconButton>
             </div>
         </div>
     }

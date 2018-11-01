@@ -24,7 +24,7 @@
         left: 0;
         bottom: 0;
         height: 1px;
-        background-color: $primary-background-lightest;
+        background-color: $primary-background-lighter;
         transform-origin: center;
         transform: scale(0, 1);
         transition: transform $duration-medium ease-in-out;
@@ -42,17 +42,31 @@
         margin-bottom: 5px;
         display: inline-block;
     }
-}
 
-.icon-button {
-    @include icon-button;
+    .form-error-icon-wrapper {
+        position: absolute;
+        right: 2px;
+        bottom: -2px;
+        padding: 7px;
+
+        .form-error-icon {
+            cursor: default;
+            color: $primary-background;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity $duration-medium linear;
+        }
+    }
+
+    &.has-error .form-error-icon {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
 
 .button {
     @include border-radius;
     @include centre-vertically(40px);
-    background-color: $primary-background;
-    color: white;
     border: none;
     width: 100%;
     text-align: center;
@@ -60,8 +74,71 @@
     font-size: $font-size-medium;
     cursor: pointer;
     transition: background-color $duration-fast linear;
+    outline: none;
 
-    &:hover {
-        background-color: $primary-background-light;
+    &.primary-button {
+        background-color: $primary-background;
+        color: white;
+
+        &:hover {
+            background-color: $primary-background-light;
+        }
+    }
+
+    &.secondary-button {
+        background-color: white;
+        border: solid 1px $primary-background-lightest;
+        color: $primary-background;
+    }
+}
+
+.icon-button {
+    $icon-size: 24px;
+    $highlight-size: 42px;
+
+    padding: $spacing-large/2;
+
+    .icon-content {
+        width: $icon-size;
+        height: $icon-size;
+        position: relative;
+        transition: color $duration-fast linear;
+        user-select: none;
+
+        .highlight {
+            display: none;
+        }
+    }
+
+    &.with-highlight {
+        .icon-content .highlight {
+            background-color: $primary-background;
+            border-radius: 50%;
+            position: absolute;
+            top: ($highlight-size - $icon-size) / -2;
+            left: ($highlight-size - $icon-size) / -2;;
+            width: $highlight-size;
+            height: $highlight-size;
+            z-index: -1;
+            transform: scale(0.5, 0.5);
+            opacity: 0;
+            transition: transform $duration-fast linear, opacity $duration-fast linear, background-color $duration-fast linear;
+            display: block;
+        }
+
+        &:hover {
+            .icon-content {
+                color: white;
+
+                .highlight {
+                    transform: scale(1, 1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &:active .highlight {
+        background-color: $primary-background-lighter;
     }
 }
