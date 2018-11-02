@@ -1,3 +1,5 @@
+import { string, any } from "prop-types";
+
 export function get(url: string, params?: any) {
     return fetch(`${url}${buildQuery(params)}`, {
         method: 'GET',
@@ -8,6 +10,14 @@ export function get(url: string, params?: any) {
 };
 
 export function post(url: string, params: any, headers?: any, useFormData?: any) {
+    return send(url, params, 'POST', headers, useFormData);
+};
+
+export function remove(url: string, params: any, headers?: any, useFormData?: any) {
+    return send(url, params, 'DELETE', headers, useFormData);
+}
+
+function send(url: string, params: any, method: string, headers?: any, useFormData?: any) {
     var body;
     if (useFormData) {
         body = new FormData();
@@ -23,14 +33,14 @@ export function post(url: string, params: any, headers?: any, useFormData?: any)
         headers['Content-Type'] = 'application/json';
 
     return fetch(url, {
-        method: 'POST',
+        method: method,
         mode: 'cors',
         headers: new Headers(headers),
         body: body
     }).then(response => {
         return response;
     });
-};
+}
 
 function buildQuery(params) {
     var query = '';

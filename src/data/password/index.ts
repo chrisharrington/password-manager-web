@@ -10,6 +10,10 @@ class PasswordService {
     async upsert(password: Password) {
         return await Communication.post(`${Config.api}/passwords`, password);
     }
+
+    async delete(password: Password) {
+        return await Communication.remove(`${Config.api}/passwords`, password);
+    }
 }
 
 export default new PasswordService();

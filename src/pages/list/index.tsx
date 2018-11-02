@@ -13,6 +13,7 @@ import { KeyCodes } from 'utilities/constants';
 
 import PasswordListItem from './password-list-item';
 import PasswordModal from './password-modal';
+import Delete from './delete';
 
 import './style.scss';
 
@@ -23,7 +24,7 @@ interface IListPageState {
     loading: boolean;
     search: string;
     page: number;
-    activePassword: Password | null;
+    delete: Password | null;
 }
 
 export default class ListPage extends React.Component<any, IListPageState> {
@@ -32,6 +33,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
     infiniteScroll: InfiniteScroll;
     feedback: Feedback;
     modal: PasswordModal;
+    delete: Delete;
 
     constructor(props) {
         super(props);
@@ -41,7 +43,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
             loading: false,
             search: '',
             page: 1,
-            activePassword: null
+            delete: null
         };
     }
 
@@ -92,6 +94,12 @@ export default class ListPage extends React.Component<any, IListPageState> {
             <Feedback
                 ref={c => this.feedback = c as Feedback}
             />
+
+            <Delete
+                ref={c => this.delete = c as Delete}
+                onDeleted={() => this.infiniteScroll.refresh()}
+                onFeedback={(type: FeedbackType, message: string) => this.feedback.message(type, message)}
+            />
         </Container>;
     }
 
@@ -112,9 +120,9 @@ export default class ListPage extends React.Component<any, IListPageState> {
         return <Col xs={4} className='spacing-bottom' key={index}>
             <PasswordListItem
                 password={password}
-                onClick={this.onSelectPassword.bind(this)}
                 onFeedback={(type: FeedbackType, message: string) => this.feedback.message(type, message)}
                 onEdit={password => this.modal.edit(password)}
+                onDelete={password => this.delete.load(password)}
             />
         </Col>;
     }
@@ -130,11 +138,5 @@ export default class ListPage extends React.Component<any, IListPageState> {
             this.search.focus();
             e.preventDefault();
         }
-    }
-
-    onSelectPassword(password) {
-        this.setState({
-            activePassword: password
-        });
     }
 }

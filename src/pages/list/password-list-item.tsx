@@ -11,6 +11,7 @@ interface IPasswordListItemProps {
     onClick?: (password: Password) => void;
     onFeedback: (type: FeedbackType, message: string) => void;
     onEdit: (password: Password) => void;
+    onDelete: (password: Password) => void;
 }
 
 interface IPasswordListItemState {
@@ -69,6 +70,7 @@ export default class PasswordListItem extends React.Component<IPasswordListItemP
                         <IconButton
                             tooltip='Delete'
                             tooltipDisabled={this.state.tooltipsDisabled}
+                            onClick={() => this.props.onDelete(password)}
                         >
                             delete
                         </IconButton>
