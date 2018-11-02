@@ -5,7 +5,7 @@
     $height: 50px;
 
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     height: $height;
     bottom: 0;
     left: 0;
@@ -36,7 +36,7 @@
     .feedback-message {
         @include centre-vertically($height);
         color: white;
-        font-size: $font-size-large;
+        font-size: $font-size-medium;
         font-family: $primary-font;
     }
 }

@@ -4,12 +4,16 @@ interface IButtonProps {
     label: string;
     onClick: () => void;
     className?: string;
+    loading?: boolean;
 }
 
 class Button extends React.Component<IButtonProps, any> {
     render() {
-        return <button className={`button ${this.props.className || ''}`} onClick={() => this.props.onClick()}>
-            {this.props.label}
+        return <button disabled={this.props.loading} className={`button ${this.props.className || ''} ${this.props.loading ? 'loading' : ''}`} onClick={() => this.props.onClick()}>
+            <div className='label'>{this.props.label}</div>
+            <div className='loader'>
+                <div></div>
+            </div>
         </button>;
     }
 }

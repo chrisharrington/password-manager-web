@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Tooltip } from 'components/tooltip';
 import Icon from 'components/icon';
 
+import { KeyCodes } from 'utilities/constants';
+
 import './style.scss';
 
 interface ITextProps {
@@ -14,6 +16,8 @@ interface ITextProps {
     inputClassName?: string;
     label?: string;
     error?: string;
+
+    onKeyUp?: (keyCode: number) => void;
 }
 
 interface ITextState {
@@ -43,6 +47,7 @@ export default class Text extends React.Component<ITextProps, ITextState> {
                 type='text'
                 placeholder={this.props.placeholder}
                 onChange={e => this.props.onChange(e.target.value)}
+                onKeyUp={e => this.props.onKeyUp && this.onKeyUp(e.keyCode)}
             />
             <div className='focus'></div>
             
@@ -61,5 +66,9 @@ export default class Text extends React.Component<ITextProps, ITextState> {
 
     focus() {
         this.input.focus();
+    }
+
+    onKeyUp(e) {
+        
     }
 }

@@ -7,7 +7,7 @@ export function get(url: string, params?: any) {
     });
 };
 
-export function post(url, params, headers, useFormData) {
+export function post(url: string, params: any, headers?: any, useFormData?: any) {
     var body;
     if (useFormData) {
         body = new FormData();
@@ -17,11 +17,18 @@ export function post(url, params, headers, useFormData) {
     } else {
         body = JSON.stringify(params);
     }
+
+    headers = headers || {};
+    if (!headers['Content-Type'])
+        headers['Content-Type'] = 'application/json';
+
     return fetch(url, {
         method: 'POST',
         mode: 'cors',
         headers: new Headers(headers),
         body: body
+    }).then(response => {
+        return response;
     });
 };
 

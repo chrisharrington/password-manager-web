@@ -14,8 +14,10 @@ export class Value {
         this.value = '';
     }
 
-    validate(value: string) {
-        
+    validate() : string | null {
+        let rule = this.rules.find(rule => !!rule.validate(this.value));
+        this.errorMessage = rule ? rule.error : '';
+        return rule ? rule.error : null;
     }
 
     get() {
@@ -40,12 +42,14 @@ export class Value {
 
 class Rule {
     validator: (value: string) => boolean;
+    error: string;
 
     constructor(validator: (value: string) => boolean, error: string) {
         this.validator = validator;
+        this.error = error;
     }
 
-    validate(value: string) : boolean {
-        return this.validator(value);
+    validate(value: string) : string | null {
+        return this.validator(value) ? null : this.error;
     }
 }

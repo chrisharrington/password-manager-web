@@ -58,13 +58,13 @@ export default class ListPage extends React.Component<any, IListPageState> {
         return <Container className='list-page'>
             <Row className='spacing-top-large'>
                 <Col xs={6} className='search-wrapper'>
-                    {/* <Text
+                    <Text
                         ref={c => this.search = c as Text}
                         inputClassName='search'
                         value={this.state.search}
                         onChange={this.onSearchChange.bind(this)}
                         placeholder='Search by domain or username...'
-                    /> */}
+                    />
                     <i className='material-icons' onClick={() => this.setState({ search: '' })}>{this.state.search ? 'close' : 'search'}</i>
                 </Col>
                 <Col xs={2} xsOffset={4}>
@@ -85,6 +85,8 @@ export default class ListPage extends React.Component<any, IListPageState> {
 
             <PasswordModal
                 ref={c => this.modal = c as PasswordModal}
+                onFeedback={(type: FeedbackType, message: string) => this.feedback.message(type, message)}
+                onSave={() => this.infiniteScroll.refresh()}
             />
 
             <Feedback
@@ -100,7 +102,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
             this.setState({ passwords });
             return passwords;
         } catch (e) {
-            alert(e);
+            this.feedback.message(FeedbackType.Error, e.toString());
         } finally {
             this.setState({ loading: false });
         }
