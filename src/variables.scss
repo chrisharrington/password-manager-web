@@ -26,6 +26,8 @@ $secondary-background-light: lighten($secondary-background, 8%);
 $secondary-background-lighter: lighten($secondary-background, 18%);
 $secondary-background-lightest: lighten($secondary-background, 22%);
 
+$tertiary-background: rgb(114, 224, 46);
+
 $primary-font-colour: black;
 $secondary-font-colour: #550080;
 $tertiary-font-colour: #777;
@@ -43,9 +45,11 @@ $spacing-large: 25px;
 
 $border-radius: 5px;
 
+$header-height: 70px;
+
 // Transitions
 
 $duration-slow: 500ms;
 $duration-medium: 350ms;
 $duration-fast: 200ms;
-$animation: 650ms;
+$duration-animation: 650ms;

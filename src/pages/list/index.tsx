@@ -9,27 +9,27 @@ import Password from 'models/password';
 
 import PasswordService from 'data/password';
 
-import { KeyCodes } from 'utilities/constants';
-
 import PasswordListItem from './password-list-item';
 import PasswordModal from './password-modal';
 import Delete from './delete';
+import Search from './search';
 
 import './style.scss';
 
 const PAGE_SIZE: number = 60;
 
+interface IListPageProps {
+    onLoading: (loading: boolean) => void;
+}
+
 interface IListPageState {
     passwords: Password[],
-    loading: boolean;
     search: string;
     page: number;
     delete: Password | null;
 }
 
-export default class ListPage extends React.Component<any, IListPageState> {
-    onKeyDownHandler: () => void;
-    search: Text;
+export default class ListPage extends React.Component<IListPageProps, IListPageState> {
     infiniteScroll: InfiniteScroll;
     feedback: Feedback;
     modal: PasswordModal;
@@ -40,34 +40,19 @@ export default class ListPage extends React.Component<any, IListPageState> {
 
         this.state = {
             passwords: [],
-            loading: false,
             search: '',
             page: 1,
             delete: null
         };
     }
 
-    async componentDidMount() {
-        this.onKeyDownHandler = this.onKeyDown.bind(this);
-        window.addEventListener('keydown', this.onKeyDownHandler);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('keyup', this.onKeyDownHandler);
-    }
-
     render() {
         return <Container className='list-page'>
             <Row className='spacing-top-large'>
                 <Col xs={6} className='search-wrapper'>
-                    <Text
-                        ref={c => this.search = c as Text}
-                        inputClassName='search'
-                        value={this.state.search}
-                        onChange={this.onSearchChange.bind(this)}
-                        placeholder='Search by domain or username...'
+                    <Search
+                        onSearch={this.onSearch.bind(this)}
                     />
-                    <i className='material-icons' onClick={() => this.setState({ search: '' })}>{this.state.search ? 'close' : 'search'}</i>
                 </Col>
                 <Col xs={2} xsOffset={4}>
                     <PrimaryButton
@@ -82,7 +67,7 @@ export default class ListPage extends React.Component<any, IListPageState> {
                     count={PAGE_SIZE}
                     get={this.get.bind(this)}
                     build={this.build.bind(this)}
-                />    
+                />
             </Row>
 
             <PasswordModal
@@ -105,14 +90,15 @@ export default class ListPage extends React.Component<any, IListPageState> {
 
     async get(start: number, count: number) {
         try {
-            this.setState({ loading: true });
+            this.props.onLoading(true);
             let passwords = await PasswordService.get(this.state.search, start, count);
             this.setState({ passwords });
             return passwords;
         } catch (e) {
             this.feedback.message(FeedbackType.Error, e.toString());
         } finally {
-            this.setState({ loading: false });
+            console.log('loading done');
+            this.props.onLoading(false);
         }
     }
 
@@ -126,17 +112,12 @@ export default class ListPage extends React.Component<any, IListPageState> {
             />
         </Col>;
     }
-
-    onSearchChange(search) {
-        this.setState({ search }, async () => {
-            await this.infiniteScroll.update();
+    
+    async onSearch(search: string) {
+        this.setState({
+            search
         });
-    }
 
-    onKeyDown(e) {
-        if (e.keyCode === KeyCodes.F3 || (e.keyCode === KeyCodes.F && e.ctrlKey)) {
-            this.search.focus();
-            e.preventDefault();
-        }
+        await this.infiniteScroll.update();
     }
 }

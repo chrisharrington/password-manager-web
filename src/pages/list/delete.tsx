@@ -33,7 +33,7 @@ export default class Delete extends React.Component<IDeleteProps, IDeleteState> 
             title={'Are you sure?'}
             message={this.state.password ? `This process is irreversible. Once deleted, this password for ${this.state.password.domain} will be gone forever.` : ''}
             onOk={() => this.onDelete(this.state.password)}
-            onCancel={() => alert('cancel')}
+            onCancel={() => this.setState({ password: null })}
         />;
     }
 
@@ -44,7 +44,6 @@ export default class Delete extends React.Component<IDeleteProps, IDeleteState> 
     }
 
     async onDelete(password: Password | null) {
-        console.log(password);
         if (!password)
             return;
 

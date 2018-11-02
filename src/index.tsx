@@ -26,32 +26,38 @@ class Application extends React.Component<any, IApplicationState> {
 
         this.state = {
             user: null,
-            loading: true
+            loading: false
         };
     }
 
     async componentDidMount() {
         try {
-            this.setState({ loading: true });
-
             let user = await UserService.get('a token');
             this.setState({ user });
         } catch (e) {
             alert(e);
         } finally {
-            this.setState({ loading: false });
         }         
     }
 
     render() {
         return <Router>
             <div>
-                <Header user={this.state.user} />
+                <Header user={this.state.user} loading={this.state.loading} />
 
-                <Route path='/' exact component={ListPage} />
+                <Route
+                    path='/'
+                    render={(props) => <ListPage {...props} onLoading={this.onLoading.bind(this)} />}
+                />
+
                 <Route path='/tools' component={ToolsPage} />
             </div>
         </Router>;
+    }
+
+    onLoading(loading: boolean) {
+        console.log(loading);
+        this.setState({ loading });
     }
 }
 

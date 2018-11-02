@@ -8,7 +8,7 @@ module.exports = {
     entry: './src/index.tsx',
 
     output: {
-        filename: 'main.js',
+        filename: 'main.[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
 
@@ -24,7 +24,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({ template: 'src/index.html' }),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin({ filename: 'main.[contenthash].css' })
     ],
 
     module: {

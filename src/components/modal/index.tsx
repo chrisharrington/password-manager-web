@@ -48,7 +48,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
 
     render() {
         return <Portal>
-            <div className={`modal ${this.props.visible ? 'modal-visible' : 'modal-hidden'} ${this.props.className || ''}`}>
+            <div className={`modal ${this.props.visible ? 'modal-visible' : ''} ${this.props.className || ''}`}>
                 <div className='modal-focus'></div>
                 <div className={`modal-content ${this.props.size || ModalSize.Medium}`}>
                     <div className='modal-close'>

@@ -2,10 +2,8 @@
 @import 'mixins.scss';
 
 header {
-    $height: 70px;
-
     width: 100%;
-    height: $height;
+    height: $header-height;
     background-color: $primary-background;
     color: white;
 
@@ -20,8 +18,8 @@ header {
             float: right;
             border-radius: 50%;
             border: solid 1px #777;
-            height: $height - 20px;
-            width: $height - 20px;
+            height: $header-height - 20px;
+            width: $header-height - 20px;
             margin-top: 10px;
         }
 
@@ -43,7 +41,7 @@ header {
     }
 
     a {
-        @include centre-vertically($height);
+        @include centre-vertically($header-height);
 
         font-family: $primary-font;
         font-size: $font-size-large;
@@ -60,5 +58,11 @@ header {
         &:first-child {
             margin-left: $spacing-large*-1;
         }
+    }
+}
+
+.progress {
+    .bar {
+        background-color: $tertiary-background;
     }
 }

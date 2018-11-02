@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -5,5 +7,27 @@
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes embiggen {
+    0% {
+        transform: scale(1, 1);
+        background-color: $primary-background-lightest;
+    }
+
+    25% {
+        transform: scale(1.5, 1.5);
+        background-color: $primary-background;
+    }
+
+    50% {
+        transform: scale(1, 1);
+        background-color: $primary-background-lightest;
+    }
+
+    100% {
+        transform: scale(1, 1);
+        background-color: $primary-background-lightest;
     }
 }
