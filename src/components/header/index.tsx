@@ -28,16 +28,10 @@ export default class Header extends React.Component<IHeaderProps, {}> {
     }
 
     componentDidUpdate(props) {
-        console.log(props);
-        console.log(this.props);
         if (props.loading === false && this.props.loading) {
             this.progress.go(80);
         } else if (props.loading && this.props.loading === false) {
-            console.log('done');
             this.progress.go(100);
-            // setTimeout(() => {
-            //     this.progress.go(0);
-            // }, 350);
         }
     }
 

@@ -97,7 +97,6 @@ export default class ListPage extends React.Component<IListPageProps, IListPageS
         } catch (e) {
             this.feedback.message(FeedbackType.Error, e.toString());
         } finally {
-            console.log('loading done');
             this.props.onLoading(false);
         }
     }

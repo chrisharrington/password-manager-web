@@ -1,5 +1,6 @@
 export enum Rules {
-    Required
+    Required,
+    EmailAddress
 }
 
 export class Value {
@@ -26,6 +27,7 @@ export class Value {
 
     set(value: string) {
         this.value = value;
+        return this;
     }
 
     error() {
@@ -36,6 +38,8 @@ export class Value {
         switch (rule) {
             case Rules.Required:
                 return new Rule((value: string) => !!value, `The ${label} is required.`);
+            case Rules.EmailAddress:
+                return new Rule((value: string) => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value), `The ${label} is not valid.`);
         }
     }
 }

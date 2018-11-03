@@ -1,17 +1,22 @@
 import User from 'models/user';
 
+import * as Communication from 'data/communication';
+
+import Config from 'config.json';
+
 const user = new User();
 user.firstName = 'Chris';
 user.lastName = 'Harrington';
 user.email = 'chrisharrington99@gmail.com';
 
 class UserService {
-    async signIn(username: string, password: string, rememberEmail: boolean) : Promise<User> {
-        return Promise.resolve(user);
+    async signIn(email: string, password: string, rememberEmail: boolean) : Promise<User> {
+        let response = await Communication.post(`${Config.api}/users`, { email, password });
+        return await response.json() as User;
     }
 
     async get(token: string) : Promise<User> {
-        return Promise.resolve(user);
+        throw 'Not implemented';
     }
 }
 

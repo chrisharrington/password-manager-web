@@ -11,6 +11,7 @@ import User from 'models/user';
 import UserService from 'data/user';
 
 import ListPage from 'pages/list';
+import SignInPage from 'pages/sign-in';
 import ToolsPage from 'pages/tools';
 
 import './style.scss';
@@ -30,16 +31,6 @@ class Application extends React.Component<any, IApplicationState> {
         };
     }
 
-    async componentDidMount() {
-        try {
-            let user = await UserService.get('a token');
-            this.setState({ user });
-        } catch (e) {
-            alert(e);
-        } finally {
-        }         
-    }
-
     render() {
         return <Router>
             <div>
@@ -47,6 +38,11 @@ class Application extends React.Component<any, IApplicationState> {
 
                 <Route
                     path='/'
+                    render={(props) => <SignInPage {...props} onLoading={this.onLoading.bind(this)} />}
+                />
+
+                <Route
+                    path='/passwords'
                     render={(props) => <ListPage {...props} onLoading={this.onLoading.bind(this)} />}
                 />
 
@@ -56,7 +52,6 @@ class Application extends React.Component<any, IApplicationState> {
     }
 
     onLoading(loading: boolean) {
-        console.log(loading);
         this.setState({ loading });
     }
 }
